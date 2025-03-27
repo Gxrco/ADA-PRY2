@@ -14,7 +14,22 @@ import matplotlib.pyplot as plt
 
 # TODO: Implementar el algoritmo de Kadane que encuentre la suma máxima de un subarreglo contiguo
 def kadane(arr):
-    pass
+    max_so_far = current_max = arr[0]
+    start = end = s = 0
+
+    for i in range(1, len(arr)):
+        if current_max + arr[i] < arr[i]:
+            current_max = arr[i]
+            s = i
+        else:
+            current_max += arr[i]
+
+        if current_max > max_so_far:
+            max_so_far = current_max
+            start = s
+            end = i
+
+    return max_so_far, start, end
 
 # TODO: Implementar la función auxiliar para encontrar la suma máxima que cruza el punto medio
 def max_crossing_subarray(arr, low, mid, high):
