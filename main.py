@@ -52,9 +52,8 @@ def max_subarray_dac(arr, low, high):
     else:
         return cross_sum, cross_low, cross_high
 
-# TODO: Función envoltorio para facilitar el llamado del algoritmo DaC
 def find_max_subarray(arr):
-    pass
+    return max_subarray_dac(arr, 0, len(arr) - 1)
 
 # TODO: Función para medir tiempo de ejecución de un algoritmo sobre múltiples casos de prueba
 def measure_time(algorithm, test_cases):
