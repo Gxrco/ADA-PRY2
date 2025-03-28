@@ -33,7 +33,27 @@ def kadane(arr):
 
 # TODO: Implementar la función auxiliar para encontrar la suma máxima que cruza el punto medio
 def max_crossing_subarray(arr, low, mid, high):
-    pass
+    left_sum = float('-inf')
+    sum_temp = 0
+    max_left = mid
+
+    for i in range(mid, low - 1, -1):
+        sum_temp += arr[i]
+        if sum_temp > left_sum:
+            left_sum = sum_temp
+            max_left = i
+
+    right_sum = float('-inf')
+    sum_temp = 0
+    max_right = mid + 1
+
+    for i in range(mid + 1, high + 1):
+        sum_temp += arr[i]
+        if sum_temp > right_sum:
+            right_sum = sum_temp
+            max_right = i
+
+    return left_sum + right_sum, max_left, max_right
 
 # TODO: Implementar el algoritmo de Divide y Conquista para el máximo subarreglo
 def max_subarray_dac(arr, low, high):
