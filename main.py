@@ -12,7 +12,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-# TODO: Implementar el algoritmo de Kadane que encuentre la suma máxima de un subarreglo contiguo
+
 def kadane(arr):
     max_so_far = current_max = arr[0]
     start = end = s = 0
@@ -55,13 +55,25 @@ def max_crossing_subarray(arr, low, mid, high):
 
     return left_sum + right_sum, max_left, max_right
 
-# TODO: Implementar el algoritmo de Divide y Conquista para el máximo subarreglo
 def max_subarray_dac(arr, low, high):
-    pass
+    if low == high:
+        return arr[low], low, high
 
-# TODO: Función envoltorio para facilitar el llamado del algoritmo DaC
+    mid = (low + high) // 2
+
+    left_sum, left_low, left_high = max_subarray_dac(arr, low, mid)
+    right_sum, right_low, right_high = max_subarray_dac(arr, mid + 1, high)
+    cross_sum, cross_low, cross_high = max_crossing_subarray(arr, low, mid, high)
+
+    if left_sum >= right_sum and left_sum >= cross_sum:
+        return left_sum, left_low, left_high
+    elif right_sum >= left_sum and right_sum >= cross_sum:
+        return right_sum, right_low, right_high
+    else:
+        return cross_sum, cross_low, cross_high
+
 def find_max_subarray(arr):
-    pass
+    return max_subarray_dac(arr, 0, len(arr) - 1)
 
 # TODO: Función para medir tiempo de ejecución de un algoritmo sobre múltiples casos de prueba
 def measure_time(algorithm, test_cases):
