@@ -77,15 +77,25 @@ def find_max_subarray(arr):
 
 # TODO: Función para medir tiempo de ejecución de un algoritmo sobre múltiples casos de prueba
 def measure_time(algorithm, test_cases):
-    pass
+    times = []
+    for case in test_cases:
+        start_time = time.time()
+        algorithm(case.copy()) 
+        times.append(time.time() - start_time)
+    return times
 
 # TODO: Función para generar casos de prueba con arreglos aleatorios
 def generate_test_cases(num_cases=30, min_size=100, max_size=10000):
     pass
 
 # TODO: Función para graficar el rendimiento de ambos algoritmos
-def plot_performance(sizes, kadane_times, dac_times):
-    pass
+def generate_test_cases(num_cases=30, min_size=100, max_size=10000):
+    sizes = np.linspace(min_size, max_size, num_cases, dtype=int)
+    test_cases = []
+    for size in sizes:
+        arr = [random.randint(-100, 100) for _ in range(size)]
+        test_cases.append(arr)
+    return test_cases
 
 # TODO: Función principal para ejecución del programa
 if __name__ == "__main__":
