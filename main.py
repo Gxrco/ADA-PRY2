@@ -31,7 +31,6 @@ def kadane(arr):
 
     return max_so_far, start, end
 
-# TODO: Implementar la función auxiliar para encontrar la suma máxima que cruza el punto medio
 def max_crossing_subarray(arr, low, mid, high):
     left_sum = float('-inf')
     sum_temp = 0
@@ -75,20 +74,14 @@ def max_subarray_dac(arr, low, high):
 def find_max_subarray(arr):
     return max_subarray_dac(arr, 0, len(arr) - 1)
 
-# TODO: Función para medir tiempo de ejecución de un algoritmo sobre múltiples casos de prueba
 def measure_time(algorithm, test_cases):
     times = []
     for case in test_cases:
         start_time = time.time()
-        algorithm(case.copy()) 
+        algorithm(case.copy())  # Usar copia para mantener original intacto
         times.append(time.time() - start_time)
     return times
 
-# TODO: Función para generar casos de prueba con arreglos aleatorios
-def generate_test_cases(num_cases=30, min_size=100, max_size=10000):
-    pass
-
-# TODO: Función para graficar el rendimiento de ambos algoritmos
 def generate_test_cases(num_cases=30, min_size=100, max_size=10000):
     sizes = np.linspace(min_size, max_size, num_cases, dtype=int)
     test_cases = []
@@ -97,6 +90,29 @@ def generate_test_cases(num_cases=30, min_size=100, max_size=10000):
         test_cases.append(arr)
     return test_cases
 
-# TODO: Función principal para ejecución del programa
+def plot_performance(sizes, kadane_times, dac_times):
+    plt.figure(figsize=(10, 6))
+    plt.plot(sizes, kadane_times, label="Kadane (O(n))", marker='o')
+    plt.plot(sizes, dac_times, label="Divide y Conquista (O(n log n))", marker='s')
+    plt.xlabel("Tamaño del arreglo (n)")
+    plt.ylabel("Tiempo de ejecución (s)")
+    plt.title("Comparación de rendimiento: Kadane vs Divide y Conquista")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("performance_comparison.png")
+    plt.show()
+
 if __name__ == "__main__":
-    pass
+    test_cases = generate_test_cases()
+
+    kadane_times = measure_time(kadane, test_cases)
+    dac_times = measure_time(find_max_subarray, test_cases)
+
+    sizes = [len(tc) for tc in test_cases]
+
+    plot_performance(sizes, kadane_times, dac_times)
+
+    ejemplo = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+    print("Ejemplo Kadane:", kadane(ejemplo))
+    print("Ejemplo Divide y Conquista:", find_max_subarray(ejemplo))
